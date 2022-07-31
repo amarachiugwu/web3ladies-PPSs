@@ -1,0 +1,35 @@
+// getKitty is the function provided by the the cryptokittens contract to access  kittens details
+// we will be needing an interface to define the structure of this function
+// this file is not doing anything in our project just for reference purpose
+
+function getKitty(uint256 _id) external view returns (
+    bool isGestating,
+    bool isReady,
+    uint256 cooldownIndex,
+    uint256 nextActionAt,
+    uint256 siringWithId,
+    uint256 birthTime,
+    uint256 matronId,
+    uint256 sireId,
+    uint256 generation,
+    uint256 genes
+) {
+    Kitty storage kit = kitties[_id];
+
+    // if this variable is 0 then it's not gestating
+    isGestating = (kit.siringWithId != 0);
+    isReady = (kit.cooldownEndBlock <= block.number);
+    cooldownIndex = uint256(kit.cooldownIndex);
+    nextActionAt = uint256(kit.cooldownEndBlock);
+    siringWithId = uint256(kit.siringWithId);
+    birthTime = uint256(kit.birthTime);
+    matronId = uint256(kit.matronId);
+    sireId = uint256(kit.sireId);
+    generation = uint256(kit.generation);
+    genes = kit.genes;
+}
+
+
+// this is the crypto kitten contract address that house the getKitty function above
+// address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
+// https://api.cryptokitties.co/kitties/
